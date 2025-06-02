@@ -693,5 +693,37 @@ mobileMenu.addEventListener('click', () => {
     
     <!-- Font Awesome图标库 -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <body>
+    <!-- 你的网页内容 -->
+    
+    <!-- 音乐播放按钮（固定在右下角） -->
+    <button onclick="toggleMusic()" style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+    ">▶</button>
+    
+    <audio id="bgMusic" loop src="main.flac"></audio>
+    
+    <script>
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            const btn = event.target;
+            if (music.paused) {
+                music.play();
+                btn.textContent = '❚❚';
+            } else {
+                music.pause();
+                btn.textContent = '▶';
+            }
+        }
+    </script>
 </body>
 </html>
