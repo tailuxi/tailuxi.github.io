@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft 1.12.2 全物品ID查询</title>
+    <!-- 添加favicon -->
+    <link rel="icon" href="https://i.postimg.cc/cHYwPbzp/240px-Lectern-Book-JE1-BE1.png" type="image/svg+xml">
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+            border-bottom: 2px solid #2e7d32;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .title-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .search-box {
+            margin: 20px 0;
+            text-align: center;
+        }
+        #search {
+            padding: 10px;
+            width: 60%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .category {
+            margin-bottom: 30px;
+        }
+        .category-title {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .item-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            transition: all 0.3s;
+        }
+        .item-card:hover {
+            background-color: #e8f5e9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .item-id {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .item-name {
+            margin-top: 5px;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <img src="https://i.postimg.cc/cHYwPbzp/240px-Lectern-Book-JE1-BE1.png" alt="Minecraft图标" class="title-icon">
+            1.12.2物品ID
+        </h1>
+        
+        <div class="search-box">
+            <input type="text" id="search" placeholder="搜索物品名称或ID...">
+        </div>
+        
+        <div class="category">
+            <h2 class="category-title">建筑材料</h2>
+            <div class="item-grid" id="building-materials">
+                <!-- 建筑材料物品将通过JavaScript动态加载 -->
+            </div>
+        </div>
+        
+        <div class="category">
+            <h2 class="category-title">矿石与矿物</h2>
+            <div class="item-grid" id="ores-minerals">
+                <!-- 矿石与矿物物品将通过JavaScript动态加载 -->
+            </div>
+        </div>
+        
+        <div class="category">
+            <h2 class="category-title">工具与武器</h2>
+            <div class="item-grid" id="tools-weapons">
+                <!-- 工具与武器物品将通过JavaScript动态加载 -->
+            </div>
+        </div>
+        
+        <div class="category">
+            <h2 class="category-title">食物与药品</h2>
+            <div class="item-grid" id="food-medicine">
+                <!-- 食物与药品物品将通过JavaScript动态加载 -->
+            </div>
+        </div>
+        
+        <div class="category">
+            <h2 class="category-title">红石与机械</h2>
+            <div class="item-grid" id="redstone-mechanisms">
+                <!-- 红石与机械物品将通过JavaScript动态加载 -->
+            </div>
+        </div>
+        
+        <div class="category">
+            <h2 class="category-title">装饰物品</h2>
+            <div class="item-grid" id="decorations">
+                <!-- 装饰物品将通过JavaScript动态加载 -->
+            </div>
+        </div>
+        
+        <div class="category">
+            <h2 class="category-title">其他物品</h2>
+            <div class="item-grid" id="miscellaneous">
+                <!-- 其他物品将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Minecraft 1.12.2 全物品数据
+        const allItems = {
+            "building-materials": [
+                {id: "1", name: "石头", meta: "0"},
+                {id: "1:1", name: "花岗岩", meta: "1"},
+                {id: "1:2", name: "磨制花岗岩", meta: "2"},
+                {id: "1:3", name: "闪长岩", meta: "3"},
+                {id: "1:4", name: "磨制闪长岩", meta: "4"},
+                {id: "1:5", name: "安山岩", meta: "5"},
+                {id: "1:6", name: "磨制安山岩", meta: "6"},
+                {id: "3", name: "泥土", meta: "0"},
+                {id: "4", name: "圆石", meta: "0"},
+                {id: "5", name: "橡木木板", meta: "0"},
+                {id: "5:1", name: "云杉木板", meta: "1"},
+                {id: "5:2", name: "桦木木板", meta: "2"},
+                {id: "5:3", name: "丛林木木板", meta: "3"},
+                {id: "5:4", name: "金合欢木板", meta: "4"},
+                {id: "5:5", name: "深色橡木木板", meta: "5"},
+                {id: "12", name: "沙子", meta: "0"},
+                {id: "12:1", name: "红沙", meta: "1"},
+                {id: "13", name: "沙砾", meta: "0"},
+                {id: "17", name: "橡木", meta: "0"},
+                {id: "17:1", name: "云杉木", meta: "1"},
+                {id: "17:2", name: "桦木", meta: "2"},
+                {id: "17:3", name: "丛林木", meta: "3"},
+                {id: "18", name: "橡树树叶", meta: "0"},
+                {id: "18:1", name: "云杉树叶", meta: "1"},
+                {id: "18:2", name: "桦树树叶", meta: "2"},
+                {id: "18:3", name: "丛林树叶", meta: "3"},
+                {id: "19", name: "海绵", meta: "0"},
+                {id: "19:1", name: "湿海绵", meta: "1"},
+                {id: "20", name: "玻璃", meta: "0"},
+                {id: "24", name: "沙石", meta: "0"},
+                {id: "24:1", name: "錾制沙石", meta: "1"},
+                {id: "24:2", name: "平滑沙石", meta: "2"},
+                {id: "35", name: "白色羊毛", meta: "0"},
+                {id: "35:1", name: "橙色羊毛", meta: "1"},
+                {id: "35:2", name: "品红色羊毛", meta: "2"},
+                {id: "35:3", name: "淡蓝色羊毛", meta: "3"},
+                {id: "35:4", name: "黄色羊毛", meta: "4"},
+                {id: "35:5", name: "黄绿色羊毛", meta: "5"},
+                {id: "35:6", name: "粉红色羊毛", meta: "6"},
+                {id: "35:7", name: "灰色羊毛", meta: "7"},
+                {id: "35:8", name: "淡灰色羊毛", meta: "8"},
+                {id: "35:9", name: "青色羊毛", meta: "9"},
+                {id: "35:10", name: "紫色羊毛", meta: "10"},
+                {id: "35:11", name: "蓝色羊毛", meta: "11"},
+                {id: "35:12", name: "棕色羊毛", meta: "12"},
+                {id: "35:13", name: "绿色羊毛", meta: "13"},
+                {id: "35:14", name: "红色羊毛", meta: "14"},
+                {id: "35:15", name: "黑色羊毛", meta: "15"},
+                {id: "42", name: "铁块", meta: "0"},
+                {id: "45", name: "砖块", meta: "0"},
+                {id: "98", name: "石砖", meta: "0"},
+                {id: "98:1", name: "苔石砖", meta: "1"},
+                {id: "98:2", name: "裂纹石砖", meta: "2"},
+                {id: "98:3", name: "錾制石砖", meta: "3"},
+                {id: "155", name: "石英块", meta: "0"},
+                {id: "155:1", name: "錾制石英块", meta: "1"},
+                {id: "155:2", name: "竖纹石英块", meta: "2"},
+                {id: "159", name: "白色粘土", meta: "0"},
+                {id: "159:1", name: "橙色粘土", meta: "1"},
+                {id: "159:2", name: "品红色粘土", meta: "2"},
+                {id: "159:3", name: "淡蓝色粘土", meta: "3"},
+                {id: "159:4", name: "黄色粘土", meta: "4"},
+                {id: "159:5", name: "黄绿色粘土", meta: "5"},
+                {id: "159:6", name: "粉红色粘土", meta: "6"},
+                {id: "159:7", name: "灰色粘土", meta: "7"},
+                {id: "159:8", name: "淡灰色粘土", meta: "8"},
+                {id: "159:9", name: "青色粘土", meta: "9"},
+                {id: "159:10", name: "紫色粘土", meta: "10"},
+                {id: "159:11", name: "蓝色粘土", meta: "11"},
+                {id: "159:12", name: "棕色粘土", meta: "12"},
+                {id: "159:13", name: "绿色粘土", meta: "13"},
+                {id: "159:14", name: "红色粘土", meta: "14"},
+                {id: "159:15", name: "黑色粘土", meta: "15"},
+                {id: "168", name: "海晶石", meta: "0"},
+                {id: "168:1", name: "海晶石砖", meta: "1"},
+                {id: "168:2", name: "暗海晶石", meta: "2"},
+                {id: "172", name: "硬化粘土", meta: "0"},
+                {id: "173", name: "煤炭块", meta: "0"},
+                {id: "174", name: "浮冰", meta: "0"},
+                {id: "179", name: "红沙石", meta: "0"},
+                {id: "179:1", name: "錾制红沙石", meta: "1"},
+                {id: "179:2", name: "平滑红沙石", meta: "2"},
+                {id: "201", name: "紫珀块", meta: "0"},
+                {id: "202", name: "竖纹紫珀块", meta: "0"},
+                {id: "203", name: "錾制紫珀块", meta: "0"},
+                {id: "206", name: "末地石砖", meta: "0"},
+                {id: "251", name: "白色带釉陶瓦", meta: "0"},
+                {id: "251:1", name: "橙色带釉陶瓦", meta: "1"},
+                {id: "251:2", name: "品红色带釉陶瓦", meta: "2"},
+                {id: "251:3", name: "淡蓝色带釉陶瓦", meta: "3"},
+                {id: "251:4", name: "黄色带釉陶瓦", meta: "4"},
+                {id: "251:5", name: "黄绿色带釉陶瓦", meta: "5"},
+                {id: "251:6", name: "粉红色带釉陶瓦", meta: "6"},
+                {id: "251:7", name: "灰色带釉陶瓦", meta: "7"},
+                {id: "251:8", name: "淡灰色带釉陶瓦", meta: "8"},
+                {id: "251:9", name: "青色带釉陶瓦", meta: "9"},
+                {id: "251:10", name: "紫色带釉陶瓦", meta: "10"},
+                {id: "251:11", name: "蓝色带釉陶瓦", meta: "11"},
+                {id: "251:12", name: "棕色带釉陶瓦", meta: "12"},
+                {id: "251:13", name: "绿色带釉陶瓦", meta: "13"},
+                {id: "251:14", name: "红色带釉陶瓦", meta: "14"},
+                {id: "251:15", name: "黑色带釉陶瓦", meta: "15"}
+            ],
+            "ores-minerals": [
+                {id: "14", name: "金矿石", meta: "0"},
+                {id: "15", name: "铁矿石", meta: "0"},
+                {id: "16", name: "煤矿石", meta: "0"},
+                {id: "21", name: "青金石矿石", meta: "0"},
+                {id: "56", name: "钻石矿石", meta: "0"},
+                {id: "73", name: "红石矿石", meta: "0"},
+                {id: "129", name: "绿宝石矿石", meta: "0"},
+                {id: "153", name: "下界石英矿石", meta: "0"},
+                {id: "263", name: "煤炭", meta: "0"},
+                {id: "263:1", name: "木炭", meta: "1"},
+                {id: "264", name: "钻石", meta: "0"},
+                {id: "265", name: "铁锭", meta: "0"},
+                {id: "266", name: "金锭", meta: "0"},
+                {id: "331", name: "红石粉", meta: "0"},
+                {id: "351", name: "青金石", meta: "0"},
+                {id: "388", name: "绿宝石", meta: "0"},
+                {id: "406", name: "下界石英", meta: "0"}
+            ],
+            "tools-weapons": [
+                {id: "256", name: "铁锹", meta: "0"},
+                {id: "257", name: "铁镐", meta: "0"},
+                {id: "258", name: "铁斧", meta: "0"},
+                {id: "259", name: "打火石", meta: "0"},
+                {id: "261", name: "弓", meta: "0"},
+                {id: "267", name: "铁剑", meta: "0"},
+                {id: "268", name: "木剑", meta: "0"},
+                {id: "269", name: "木锹", meta: "0"},
+                {id: "270", name: "木镐", meta: "0"},
+                {id: "271", name: "木斧", meta: "0"},
+                {id: "272", name: "石剑", meta: "0"},
+                {id: "273", name: "石锹", meta: "0"},
+                {id: "274", name: "石镐", meta: "0"},
+                {id: "275", name: "石斧", meta: "0"},
+                {id: "276", name: "钻石剑", meta: "0"},
+                {id: "277", name: "钻石锹", meta: "0"},
+                {id: "278", name: "钻石镐", meta: "0"},
+                {id: "279", name: "钻石斧", meta: "0"},
+                {id: "283", name: "金剑", meta: "0"},
+                {id: "284", name: "金锹", meta: "0"},
+                {id: "285", name: "金镐", meta: "0"},
+                {id: "286", name: "金斧", meta: "0"},
+                {id: "290", name: "木锄", meta: "0"},
+                {id: "291", name: "石锄", meta: "0"},
+                {id: "292", name: "铁锄", meta: "0"},
+                {id: "293", name: "钻石锄", meta: "0"},
+                {id: "294", name: "金锄", meta: "0"},
+                {id: "346", name: "钓鱼竿", meta: "0"},
+                {id: "359", name: "剪刀", meta: "0"},
+                {id: "398", name: "弩", meta: "0"}
+            ],
+            "food-medicine": [
+                {id: "260", name: "苹果", meta: "0"},
+                {id: "260:1", name: "金苹果", meta: "1"},
+                {id: "260:2", name: "附魔金苹果", meta: "2"},
+                {id: "297", name: "面包", meta: "0"},
+                {id: "319", name: "生猪肉", meta: "0"},
+                {id: "320", name: "熟猪肉", meta: "0"},
+                {id: "322", name: "金胡萝卜", meta: "0"},
+                {id: "349", name: "生鱼", meta: "0"},
+                {id: "349:1", name: "生鲑鱼", meta: "1"},
+                {id: "349:2", name: "小丑鱼", meta: "2"},
+                {id: "349:3", name: "河豚", meta: "3"},
+                {id: "350", name: "熟鱼", meta: "0"},
+                {id: "350:1", name: "熟鲑鱼", meta: "1"},
+                {id: "357", name: "曲奇", meta: "0"},
+                {id: "360", name: "西瓜片", meta: "0"},
+                {id: "364", name: "牛排", meta: "0"},
+                {id: "365", name: "生牛肉", meta: "0"},
+                {id: "366", name: "熟鸡肉", meta: "0"},
+                {id: "367", name: "生鸡肉", meta: "0"},
+                {id: "391", name: "胡萝卜", meta: "0"},
+                {id: "392", name: "马铃薯", meta: "0"},
+                {id: "393", name: "烤马铃薯", meta: "0"},
+                {id: "394", name: "毒马铃薯", meta: "0"},
+                {id: "400", name: "南瓜派", meta: "0"},
+                {id: "411", name: "生兔肉", meta: "0"},
+                {id: "412", name: "熟兔肉", meta: "0"},
+                {id: "413", name: "兔肉煲", meta: "0"},
+                {id: "414", name: "生羊肉", meta: "0"},
+                {id: "415", name: "熟羊肉", meta: "0"},
+                {id: "423", name: "甜菜根", meta: "0"},
+                {id: "424", name: "甜菜汤", meta: "0"},
+                {id: "430", name: "紫颂果", meta: "0"},
+                {id: "437", name: "迷之炖菜", meta: "0"},
+                {id: "282", name: "药水", meta: "0"},
+                {id: "373", name: "药水", meta: "0"},
+                {id: "438", name: "滞留药水", meta: "0"}
+            ],
+            "redstone-mechanisms": [
+                {id: "23", name: "发射器", meta: "0"},
+                {id: "25", name: "音符盒", meta: "0"},
+                {id: "27", name: "动力铁轨", meta: "0"},
+                {id: "28", name: "探测铁轨", meta: "0"},
+                {id: "29", name: "粘性活塞", meta: "0"},
+                {id: "33", name: "活塞", meta: "0"},
+                {id: "46", name: "TNT", meta: "0"},
+                {id: "54", name: "箱子", meta: "0"},
+                {id: "58", name: "工作台", meta: "0"},
+                {id: "61", name: "熔炉", meta: "0"},
+                {id: "64", name: "木门", meta: "0"},
+                {id: "69", name: "拉杆", meta: "0"},
+                {id: "70", name: "石质压力板", meta: "0"},
+                {id: "72", name: "木质压力板", meta: "0"},
+                {id: "75", name: "红石火把(熄灭)", meta: "0"},
+                {id: "76", name: "红石火把(亮着)", meta: "0"},
+                {id: "77", name: "石质按钮", meta: "0"},
+                {id: "84", name: "音符盒", meta: "0"},
+                {id: "96", name: "活板门", meta: "0"},
+                {id: "123", name: "红石灯", meta: "0"},
+                {id: "131", name: "绊线钩", meta: "0"},
+                {id: "143", name: "木质按钮", meta: "0"},
+                {id: "146", name: "陷阱箱", meta: "0"},
+                {id: "147", name: "轻质测重压力板", meta: "0"},
+                {id: "148", name: "重质测重压力板", meta: "0"},
+                {id: "151", name: "阳光传感器", meta: "0"},
+                {id: "154", name: "漏斗", meta: "0"},
+                {id: "158", name: "投掷器", meta: "0"},
+                {id: "167", name: "铁门", meta: "0"},
+                {id: "178", name: "反向阳光传感器", meta: "0"},
+                {id: "218", name: "侦测器", meta: "0"},
+                {id: "219", name: "结构方块", meta: "0"},
+                {id: "220", name: "结构空位", meta: "0"},
+                {id: "221", name: "允许方块", meta: "0"},
+                {id: "222", name: "拒绝方块", meta: "0"},
+                {id: "248", name: "屏障", meta: "0"},
+                {id: "330", name: "铁砧", meta: "0"},
+                {id: "356", name: "红石中继器", meta: "0"},
+                {id: "404", name: "比较器", meta: "0"}
+            ],
+            "decorations": [
+                {id: "6", name: "橡树树苗", meta: "0"},
+                {id: "6:1", name: "云杉树苗", meta: "1"},
+                {id: "6:2", name: "桦树树苗", meta: "2"},
+                {id: "6:3", name: "丛林树苗", meta: "3"},
+                {id: "6:4", name: "金合欢树苗", meta: "4"},
+                {id: "6:5", name: "深色橡树树苗", meta: "5"},
+                {id: "31", name: "草", meta: "0"},
+                {id: "31:1", name: "蕨", meta: "1"},
+                {id: "37", name: "蒲公英", meta: "0"},
+                {id: "38", name: "罂粟", meta: "0"},
+                {id: "38:1", name: "蓝色蝴蝶兰", meta: "1"},
+                {id: "38:2", name: "绒球葱", meta: "2"},
+                {id: "38:3", name: "茜草花", meta: "3"},
+                {id: "38:4", name: "红色郁金香", meta: "4"},
+                {id: "38:5", name: "橙色郁金香", meta: "5"},
+                {id: "38:6", name: "白色郁金香", meta: "6"},
+                {id: "38:7", name: "粉红色郁金香", meta: "7"},
+                {id: "38:8", name: "滨菊", meta: "8"},
+                {id: "39", name: "棕色蘑菇", meta: "0"},
+                {id: "40", name: "红色蘑菇", meta: "0"},
+                {id: "50", name: "火把", meta: "0"},
+                {id: "63", name: "告示牌", meta: "0"},
+                {id: "65", name: "梯子", meta: "0"},
+                {id: "66", name: "铁轨", meta: "0"},
+                {id: "83", name: "甘蔗", meta: "0"},
+                {id: "85", name: "栅栏", meta: "0"},
+                {id: "?", name: "皮革", meta: "0"},
+                {id: "102", name: "玻璃板", meta: "0"},
+                {id: "104", name: "南瓜茎", meta: "0"},
+                {id: "105", name: "西瓜茎", meta: "0"},
+                {id: "106", name: "藤蔓", meta: "0"},
+                {id: "107", name: "栅栏门", meta: "0"},
+                {id: "111", name: "睡莲", meta: "0"},
+                {id: "115", name: "末地烛", meta: "0"},
+                {id: "141", name: "胡萝卜", meta: "0"},
+                {id: "142", name: "马铃薯", meta: "0"},
+                {id: "144", name: "头颅", meta: "0"},
+                {id: "175", name: "向日葵", meta: "0"},
+                {id: "175:1", name: "丁香", meta: "1"},
+                {id: "175:2", name: "高草", meta: "2"},
+                {id: "175:3", name: "大型蕨", meta: "3"},
+                {id: "175:4", name: "玫瑰丛", meta: "4"},
+                {id: "175:5", name: "牡丹", meta: "5"},
+                {id: "198", name: "草径", meta: "0"},
+                {id: "199", name: "物品展示框", meta: "0"},
+                {id: "207", name: "甜浆果丛", meta: "0"},
+                {id: "208", name: "甜浆果", meta: "0"},
+                {id: "209", name: "末地门框架", meta: "0"},
+                {id: "210", name: "末地传送门", meta: "0"},
+                {id: "211", name: "末地石", meta: "0"},
+                {id: "212", name: "龙蛋", meta: "0"},
+                {id: "213", name: "红石灯", meta: "0"},
+                {id: "214", name: "双层木台阶", meta: "0"},
+                {id: "215", name: "木台阶", meta: "0"},
+                {id: "216", name: "可可豆", meta: "0"},
+                {id: "217", name: "砂岩台阶", meta: "0"},
+                {id: "223", name: "铁栏杆", meta: "0"},
+                {id: "224", name: "玻璃板", meta: "0"},
+                {id: "225", name: "西瓜", meta: "0"},
+                {id: "226", name: "南瓜", meta: "0"},
+                {id: "227", name: "地狱砖栅栏", meta: "0"},
+                {id: "228", name: "地狱砖台阶", meta: "0"},
+                {id: "229", name: "红砂岩", meta: "0"},
+                {id: "230", name: "錾制红砂岩", meta: "0"},
+                {id: "231", name: "平滑红砂岩", meta: "0"},
+                {id: "232", name: "红砂岩台阶", meta: "0"},
+                {id: "233", name: "双层红砂岩台阶", meta: "0"},
+                {id: "234", name: "云杉木栅栏门", meta: "0"},
+                {id: "235", name: "桦木栅栏门", meta: "0"},
+                {id: "236", name: "丛林木栅栏门", meta: "0"},
+                {id: "237", name: "金合欢栅栏门", meta: "0"},
+                {id: "238", name: "深色橡木栅栏门", meta: "0"},
+                {id: "239", name: "云杉木栅栏", meta: "0"},
+                {id: "240", name: "桦木栅栏", meta: "0"},
+                {id: "241", name: "丛林木栅栏", meta: "0"},
+                {id: "242", name: "金合欢栅栏", meta: "0"},
+                {id: "243", name: "深色橡木栅栏", meta: "0"},
+                {id: "244", name: "云杉木门", meta: "0"},
+                {id: "245", name: "桦木门", meta: "0"},
+                {id: "246", name: "丛林木门", meta: "0"},
+                {id: "247", name: "金合欢门", meta: "0"},
+                {id: "249", name: "深色橡木门", meta: "0"},
+                {id: "250", name: "末地石砖", meta: "0"},
+                {id: "252", name: "白色混凝土", meta: "0"},
+                {id: "252:1", name: "橙色混凝土", meta: "1"},
+                {id: "252:2", name: "品红色混凝土", meta: "2"},
+                {id: "252:3", name: "淡蓝色混凝土", meta: "3"},
+                {id: "252:4", name: "黄色混凝土", meta: "4"},
+                {id: "252:5", name: "黄绿色混凝土", meta: "5"},
+                {id: "252:6", name: "粉红色混凝土", meta: "6"},
+                {id: "252:7", name: "灰色混凝土", meta: "7"},
+                {id: "252:8", name: "淡灰色混凝土", meta: "8"},
+                {id: "252:9", name: "青色混凝土", meta: "9"},
+                {id: "252:10", name: "紫色混凝土", meta: "10"},
+                {id: "252:11", name: "蓝色混凝土", meta: "11"},
+                {id: "252:12", name: "棕色混凝土", meta: "12"},
+                {id: "252:13", name: "绿色混凝土", meta: "13"},
+                {id: "252:14", name: "红色混凝土", meta: "14"},
+                {id: "252:15", name: "黑色混凝土", meta: "15"},
+                {id: "253", name: "白色混凝土粉末", meta: "0"},
+                {id: "253:1", name: "橙色混凝土粉末", meta: "1"},
+                {id: "253:2", name: "品红色混凝土粉末", meta: "2"},
+                {id: "253:3", name: "淡蓝色混凝土粉末", meta: "3"},
+                {id: "253:4", name: "黄色混凝土粉末", meta: "4"},
+                {id: "253:5", name: "黄绿色混凝土粉末", meta: "5"},
+                {id: "253:6", name: "粉红色混凝土粉末", meta: "6"},
+                {id: "253:7", name: "灰色混凝土粉末", meta: "7"},
+                {id: "253:8", name: "淡灰色混凝土粉末", meta: "8"},
+                {id: "253:9", name: "青色混凝土粉末", meta: "9"},
+                {id: "253:10", name: "紫色混凝土粉末", meta: "10"},
+                {id: "253:11", name: "蓝色混凝土粉末", meta: "11"},
+                {id: "253:12", name: "棕色混凝土粉末", meta: "12"},
+                {id: "253:13", name: "绿色混凝土粉末", meta: "13"},
+                {id: "253:14", name: "红色混凝土粉末", meta: "14"},
+                {id: "253:15", name: "黑色混凝土粉末", meta: "15"},
+                {id: "254", name: "海晶灯", meta: "0"},
+                {id: "255", name: "干草块", meta: "0"}
+            ],
+            "miscellaneous": [
+                {id: "7", name: "基岩", meta: "0"},
+                {id: "8", name: "水", meta: "0"},
+                {id: "9", name: "静止的水", meta: "0"},
+                {id: "10", name: "岩浆", meta: "0"},
+                {id: "11", name: "静止的岩浆", meta: "0"},
+                {id: "22", name: "青金石块", meta: "0"},
+                {id: "26", name: "床", meta: "0"},
+                {id: "30", name: "蜘蛛网", meta: "0"},
+                {id: "32", name: "枯灌木", meta: "0"},
+                {id: "34", name: "活塞臂", meta: "0"},
+                {id: "36", name: "活塞头", meta: "0"},
+                {id: "41", name: "金块", meta: "0"},
+                {id: "43", name: "双石台阶", meta: "0"},
+                {id: "44", name: "石台阶", meta: "0"},
+                {id: "47", name: "书架", meta: "0"},
+                {id: "48", name: "苔石", meta: "0"},
+                {id: "49", name: "黑曜石", meta: "0"},
+                {id: "52", name: "刷怪笼", meta: "0"},
+                {id: "53", name: "橡木楼梯", meta: "0"},
+                {id: "57", name: "钻石块", meta: "0"},
+                {id: "59", name: "小麦种子", meta: "0"},
+                {id: "60", name: "耕地", meta: "0"},
+                {id: "62", name: "燃烧的熔炉", meta: "0"},
+                {id: "67", name: "圆石楼梯", meta: "0"},
+                {id: "68", name: "墙上的告示牌", meta: "0"},
+                {id: "71", name: "铁门", meta: "0"},
+                {id: "74", name: "发光的红石矿石", meta: "0"},
+                {id: "78", name: "雪", meta: "0"},
+                {id: "79", name: "冰", meta: "0"},
+                {id: "80", name: "雪块", meta: "0"},
+                {id: "81", name: "仙人掌", meta: "0"},
+                {id: "82", name: "粘土块", meta: "0"},
+                {id: "86", name: "南瓜", meta: "0"},
+                {id: "87", name: "地狱岩", meta: "0"},
+                {id: "88", name: "灵魂沙", meta: "0"},
+                {id: "89", name: "萤石", meta: "0"},
+                {id: "90", name: "下界传送门", meta: "0"},
+                {id: "91", name: "南瓜灯", meta: "0"},
+                {id: "92", name: "蛋糕", meta: "0"},
+                {id: "93", name: "红石中继器(关闭)", meta: "0"},
+                {id: "94", name: "红石中继器(开启)", meta: "0"},
+                {id: "95", name: "白色染色玻璃", meta: "0"},
+                {id: "95:1", name: "橙色染色玻璃", meta: "1"},
+                {id: "95:2", name: "品红色染色玻璃", meta: "2"},
+                {id: "95:3", name: "淡蓝色染色玻璃", meta: "3"},
+                {id: "95:4", name: "黄色染色玻璃", meta: "4"},
+                {id: "95:5", name: "黄绿色染色玻璃", meta: "5"},
+                {id: "95:6", name: "粉红色染色玻璃", meta: "6"},
+                {id: "95:7", name: "灰色染色玻璃", meta: "7"},
+                {id: "95:8", name: "淡灰色染色玻璃", meta: "8"},
+                {id: "95:9", name: "青色染色玻璃", meta: "9"},
+                {id: "95:10", name: "紫色染色玻璃", meta: "10"},
+                {id: "95:11", name: "蓝色染色玻璃", meta: "11"},
+                {id: "95:12", name: "棕色染色玻璃", meta: "12"},
+                {id: "95:13", name: "绿色染色玻璃", meta: "13"},
+                {id: "95:14", name: "红色染色玻璃", meta: "14"},
+                {id: "95:15", name: "黑色染色玻璃", meta: "15"},
+                {id: "97", name: "蠹虫方块", meta: "0"},
+                {id: "99", name: "棕色蘑菇方块", meta: "0"},
+                {id: "100", name: "红色蘑菇方块", meta: "0"},
+                {id: "101", name: "铁栏杆", meta: "0"},
+                {id: "103", name: "西瓜", meta: "0"},
+                {id: "108", name: "砖块楼梯", meta: "0"},
+                {id: "109", name: "石砖楼梯", meta: "0"},
+                {id: "110", name: "菌丝", meta: "0"},
+                {id: "112", name: "地狱砖块", meta: "0"},
+                {id: "113", name: "地狱砖栅栏", meta: "0"},
+                {id: "114", name: "地狱砖楼梯", meta: "0"},
+                {id: "116", name: "附魔台", meta: "0"},
+                {id: "117", name: "酿造台", meta: "0"},
+                {id: "118", name: "炼药锅", meta: "0"},
+                {id: "120", name: "末地传送门框架", meta: "0"},
+                {id: "121", name: "末地石", meta: "0"},
+                {id: "122", name: "龙蛋", meta: "0"},
+                {id: "123", name: "红石灯", meta: "0"},
+                {id: "124", name: "发光的红石灯", meta: "0"},
+                {id: "126", name: "橡木台阶", meta: "0"},
+                {id: "126:1", name: "云杉木台阶", meta: "1"},
+                {id: "126:2", name: "桦木台阶", meta: "2"},
+                {id: "126:3", name: "丛林木台阶", meta: "3"},
+                {id: "126:4", name: "金合欢木台阶", meta: "4"},
+                {id: "126:5", name: "深色橡木台阶", meta: "5"},
+                {id: "127", name: "可可豆", meta: "0"},
+                {id: "128", name: "砂岩楼梯", meta: "0"},
+                {id: "130", name: "末影箱", meta: "0"},
+                {id: "132", name: "绊线", meta: "0"},
+                {id: "133", name: "绿宝石块", meta: "0"},
+                {id: "134", name: "云杉木楼梯", meta: "0"},
+                {id: "135", name: "桦木楼梯", meta: "0"},
+                {id: "136", name: "丛林木楼梯", meta: "0"},
+                {id: "137", name: "命令方块", meta: "0"},
+                {id: "138", name: "信标", meta: "0"},
+                {id: "139", name: "圆石墙", meta: "0"},
+                {id: "139:1", name: "苔石墙", meta: "1"},
+                {id: "140", name: "花盆", meta: "0"},
+                {id: "144", name: "头颅", meta: "0"},
+                {id: "145", name: "铁砧", meta: "0"},
+                {id: "146", name: "陷阱箱", meta: "0"},
+                {id: "147", name: "轻质测重压力板", meta: "0"},
+                {id: "148", name: "重质测重压力板", meta: "0"},
+                {id: "149", name: "红石比较器(关闭)", meta: "0"},
+                {id: "150", name: "红石比较器(开启)", meta: "0"},
+                {id: "151", name: "阳光传感器", meta: "0"},
+                {id: "152", name: "红石块", meta: "0"},
+                {id: "153", name: "下界石英矿石", meta: "0"},
+                {id: "154", name: "漏斗", meta: "0"},
+                {id: "155", name: "石英块", meta: "0"},
+                {id: "156", name: "石英楼梯", meta: "0"},
+                {id: "157", name: "激活铁轨", meta: "0"},
+                {id: "158", name: "投掷器", meta: "0"},
+                {id: "159", name: "白色粘土", meta: "0"},
+                {id: "160", name: "白色染色玻璃板", meta: "0"},
+                {id: "161", name: "金合欢树叶", meta: "0"},
+                {id: "161:1", name: "深色橡树树叶", meta: "1"},
+                {id: "162", name: "金合欢木", meta: "0"},
+                {id: "162:1", name: "深色橡木", meta: "1"},
+                {id: "163", name: "金合欢木楼梯", meta: "0"},
+                {id: "164", name: "深色橡木楼梯", meta: "0"},
+                {id: "165", name: "粘液块", meta: "0"},
+                {id: "166", name: "屏障", meta: "0"},
+                {id: "167", name: "铁门", meta: "0"},
+                {id: "168", name: "海晶石", meta: "0"},
+                {id: "169", name: "海晶石灯", meta: "0"},
+                {id: "170", name: "干草块", meta: "0"},
+                {id: "171", name: "白色地毯", meta: "0"},
+                {id: "171:1", name: "橙色地毯", meta: "1"},
+                {id: "171:2", name: "品红色地毯", meta: "2"},
+                {id: "171:3", name: "淡蓝色地毯", meta: "3"},
+                {id: "171:4", name: "黄色地毯", meta: "4"},
+                {id: "171:5", name: "黄绿色地毯", meta: "5"},
+                {id: "171:6", name: "粉红色地毯", meta: "6"},
+                {id: "171:7", name: "灰色地毯", meta: "7"},
+                {id: "171:8", name: "淡灰色地毯", meta: "8"},
+                {id: "171:9", name: "青色地毯", meta: "9"},
+                {id: "171:10", name: "紫色地毯", meta: "10"},
+                {id: "171:11", name: "蓝色地毯", meta: "11"},
+                {id: "171:12", name: "棕色地毯", meta: "12"},
+                {id: "171:13", name: "绿色地毯", meta: "13"},
+                {id: "171:14", name: "红色地毯", meta: "14"},
+                {id: "171:15", name: "黑色地毯", meta: "15"},
+                {id: "172", name: "硬化粘土", meta: "0"},
+                {id: "173", name: "煤炭块", meta: "0"},
+                {id: "174", name: "浮冰", meta: "0"},
+                {id: "175", name: "向日葵", meta: "0"},
+                {id: "176", name: "旗帜", meta: "0"},
+                {id: "177", name: "墙上的旗帜", meta: "0"},
+                {id: "178", name: "反向阳光传感器", meta: "0"},
+                {id: "179", name: "红沙石", meta: "0"},
+                {id: "180", name: "红沙石楼梯", meta: "0"},
+                {id: "182", name: "红沙石台阶", meta: "0"},
+                {id: "183", name: "云杉木栅栏门", meta: "0"},
+                {id: "184", name: "桦木栅栏门", meta: "0"},
+                {id: "185", name: "丛林木栅栏门", meta: "0"},
+                {id: "186", name: "金合欢栅栏门", meta: "0"},
+                {id: "187", name: "深色橡木栅栏门", meta: "0"},
+                {id: "188", name: "云杉木栅栏", meta: "0"},
+                {id: "189", name: "桦木栅栏", meta: "0"},
+                {id: "190", name: "丛林木栅栏", meta: "0"},
+                {id: "191", name: "金合欢栅栏", meta: "0"},
+                {id: "192", name: "深色橡木栅栏", meta: "0"},
+                {id: "193", name: "云杉木门", meta: "0"},
+                {id: "194", name: "桦木门", meta: "0"},
+                {id: "195", name: "丛林木门", meta: "0"},
+                {id: "196", name: "金合欢门", meta: "0"},
+                {id: "197", name: "深色橡木门", meta: "0"},
+                {id: "198", name: "草径", meta: "0"},
+                {id: "199", name: "物品展示框", meta: "0"},
+                {id: "200", name: "合唱花", meta: "0"},
+                {id: "201", name: "紫珀块", meta: "0"},
+                {id: "202", name: "竖纹紫珀块", meta: "0"},
+                {id: "203", name: "錾制紫珀块", meta: "0"},
+                {id: "204", name: "紫珀楼梯", meta: "0"},
+                {id: "205", name: "紫珀台阶", meta: "0"},
+                {id: "206", name: "末地石砖", meta: "0"},
+                {id: "207", name: "甜浆果丛", meta: "0"},
+                {id: "208", name: "甜浆果", meta: "0"},
+                {id: "209", name: "末地门框架", meta: "0"},
+                {id: "210", name: "末地传送门", meta: "0"},
+                {id: "211", name: "末地石", meta: "0"},
+                {id: "212", name: "龙蛋", meta: "0"},
+                {id: "213", name: "红石灯", meta: "0"},
+                {id: "214", name: "双层木台阶", meta: "0"},
+                {id: "215", name: "木台阶", meta: "0"},
+                {id: "216", name: "可可豆", meta: "0"},
+                {id: "217", name: "砂岩台阶", meta: "0"},
+                {id: "218", name: "侦测器", meta: "0"},
+                {id: "219", name: "结构方块", meta: "0"},
+                {id: "220", name: "结构空位", meta: "0"},
+                {id: "221", name: "允许方块", meta: "0"},
+                {id: "222", name: "拒绝方块", meta: "0"},
+                {id: "223", name: "铁栏杆", meta: "0"},
+                {id: "224", name: "玻璃板", meta: "0"},
+                {id: "225", name: "西瓜", meta: "0"},
+                {id: "226", name: "南瓜", meta: "0"},
+                {id: "227", name: "地狱砖栅栏", meta: "0"},
+                {id: "228", name: "地狱砖台阶", meta: "0"},
+                {id: "229", name: "红砂岩", meta: "0"},
+                {id: "230", name: "錾制红砂岩", meta: "0"},
+                {id: "231", name: "平滑红砂岩", meta: "0"},
+                {id: "232", name: "红砂岩台阶", meta: "0"},
+                {id: "233", name: "双层红砂岩台阶", meta: "0"},
+                {id: "234", name: "云杉木栅栏门", meta: "0"},
+                {id: "235", name: "桦木栅栏门", meta: "0"},
+                {id: "236", name: "丛林木栅栏门", meta: "0"},
+                {id: "237", name: "金合欢栅栏门", meta: "0"},
+                {id: "238", name: "深色橡木栅栏门", meta: "0"},
+                {id: "239", name: "云杉木栅栏", meta: "0"},
+                {id: "240", name: "桦木栅栏", meta: "0"},
+                {id: "241", name: "丛林木栅栏", meta: "0"},
+                {id: "242", name: "金合欢栅栏", meta: "0"},
+                {id: "243", name: "深色橡木栅栏", meta: "0"},
+                {id: "244", name: "云杉木门", meta: "0"},
+                {id: "245", name: "桦木门", meta: "0"},
+                {id: "246", name: "丛林木门", meta: "0"},
+                {id: "247", name: "金合欢门", meta: "0"},
+                {id: "248", name: "深色橡木门", meta: "0"},
+                {id: "249", name: "末地石砖", meta: "0"},
+                {id: "250", name: "末地石砖", meta: "0"},
+                {id: "251", name: "白色带釉陶瓦", meta: "0"},
+                {id: "252", name: "白色混凝土", meta: "0"},
+                {id: "253", name: "白色混凝土粉末", meta: "0"},
+                {id: "254", name: "海晶灯", meta: "0"},
+                {id: "255", name: "干草块", meta: "0"}
+            ]
+        };
+
+        // 加载所有物品到页面
+        function loadAllItems() {
+            for (const category in allItems) {
+                const container = document.getElementById(category);
+                const items = allItems[category];
+                
+                items.forEach(item => {
+                    const itemCard = document.createElement('div');
+                    itemCard.className = 'item-card';
+                    itemCard.innerHTML = `
+                        <div class="item-id">ID: ${item.id}</div>
+                        <div class="item-name">${item.name}</div>
+                    `;
+                    container.appendChild(itemCard);
+                });
+            }
+        }
+
+        // 搜索功能
+        document.getElementById('search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const itemCards = document.querySelectorAll('.item-card');
+            
+            itemCards.forEach(card => {
+                const id = card.querySelector('.item-id').textContent.toLowerCase();
+                const name = card.querySelector('.item-name').textContent.toLowerCase();
+                
+                if (id.includes(searchTerm) || name.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    
+                    // 高亮显示匹配的文本
+                    if (searchTerm) {
+                        const regex = new RegExp(searchTerm, 'gi');
+                        card.querySelector('.item-id').innerHTML = card.querySelector('.item-id').textContent.replace(regex, match => `<span class="highlight">${match}</span>`);
+                        card.querySelector('.item-name').innerHTML = card.querySelector('.item-name').textContent.replace(regex, match => `<span class="highlight">${match}</span>`);
+                    } else {
+                        // 重置高亮
+                        card.querySelector('.item-id').innerHTML = card.querySelector('.item-id').textContent;
+                        card.querySelector('.item-name').innerHTML = card.querySelector('.item-name').textContent;
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // 页面加载完成后初始化
+        window.onload = function() {
+            loadAllItems();
+        };
+    </script>
+</body>
+</html>
