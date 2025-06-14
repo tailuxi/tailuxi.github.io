@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft友链世界</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #1a1f2d;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.5) 0%, transparent 50%),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, transparent 50%);
+            background-size: 80px 80px;
+            font-family: 'Press Start 2P', cursive;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 顶部标题栏 */
+        .header {
+            background-color: #3b8526;
+            border: 4px solid #2a631c;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 0 #2a631c;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            color: #ffd83d;
+            text-shadow: 3px 3px 0 #2a631c;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: #e8e8e8;
+            text-shadow: 2px 2px 0 #2a631c;
+        }
+        
+        /* 内容区域 */
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 60px;
+            justify-content: center;
+        }
+        
+        /* 友链卡片 */
+        .friend-card {
+            background: #5c7cfa;
+            border: 4px solid #3b5bdb;
+            width: 280px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 8px 0 #3b5bdb;
+            transition: all 0.2s ease;
+        }
+        
+        .friend-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 13px 0 #3b5bdb;
+        }
+        
+        .friend-card:nth-child(2n) {
+            background: #ff6b6b;
+            border-color: #e03131;
+            box-shadow: 0 8px 0 #e03131;
+        }
+        
+        .friend-card:nth-child(2n):hover {
+            box-shadow: 0 13px 0 #e03131;
+        }
+        
+        .friend-card:nth-child(3n) {
+            background: #ffd43b;
+            border-color: #e67700;
+            box-shadow: 0 8px 0 #e67700;
+        }
+        
+        .friend-card:nth-child(3n):hover {
+            box-shadow: 0 13px 0 #e67700;
+        }
+        
+        .friend-avatar {
+            width: 80px;
+            height: 80px;
+            border: 4px solid #fff;
+            background: #868e96;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .friend-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .friend-name {
+            font-size: 1.2rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        .friend-desc {
+            font-size: 0.7rem;
+            color: #e8e8e8;
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            min-height: 80px;
+        }
+        
+        .visit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #ff6b6b;
+            border: 3px solid #e03131;
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #e03131;
+            transition: all 0.1s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .visit-btn:hover {
+            background: #ff8787;
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #e03131;
+        }
+        
+        .visit-btn:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+        
+        /* 底部返回按钮 */
+        .footer {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        
+        .return-btn {
+            background: #3b8526;
+            border: 4px solid #2a631c;
+            color: #ffd83d;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            padding: 15px 40px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #2a631c;
+            transition: all 0.1s ease;
+            text-shadow: 2px 2px 0 #2a631c;
+        }
+        
+        .return-btn:hover {
+            background: #4a9e30;
+            transform: translateY(2px);
+            box-shadow: 0 6px 0 #2a631c;
+        }
+        
+        .return-btn:active {
+            transform: translateY(8px);
+            box-shadow: none;
+        }
+        
+        /* 装饰元素 */
+        .pixel-box {
+            position: absolute;
+            background: #ffd83d;
+            border: 4px solid #e67700;
+            box-shadow: 0 8px 0 #e67700;
+            z-index: 0;
+        }
+        
+        .box1 {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 5%;
+        }
+        
+        .box2 {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            right: 8%;
+            background: #5c7cfa;
+            border-color: #3b5bdb;
+            box-shadow: 0 8px 0 #3b5bdb;
+        }
+        
+        .box3 {
+            width: 50px;
+            height: 50px;
+            top: 30%;
+            right: 15%;
+            background: #ff6b6b;
+            border-color: #e03131;
+            box-shadow: 0 8px 0 #e03131;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 0.7rem;
+            }
+            
+            .friend-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .pixel-box {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 装饰像素块 -->
+    <div class="pixel-box box1"></div>
+    <div class="pixel-box box2"></div>
+    <div class="pixel-box box3"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title">MINECRAFT 友链世界</h1>
+            <p class="subtitle">探索像素世界的朋友们</p>
+        </div>
+        
+        <div class="content">
+            <!-- 友链卡片 1 -->
+            <div class="friend-card">
+                <div class="friend-avatar">
+                    <img src="https://i.pravatar.cc/80?img=1" alt="方块史蒂夫">
+                </div>
+                <h3 class="friend-name">方块史蒂夫</h3>
+                <p class="friend-desc">我的世界骨灰级玩家，红石电路大师，生存模式专家。分享各种建筑技巧和生存攻略。</p>
+                <a href="#" class="visit-btn">访问主页</a>
+            </div>
+            
+            <!-- 友链卡片 2 -->
+            <div class="friend-card">
+                <div class="friend-avatar">
+                    <img src="https://i.pravatar.cc/80?img=2" alt="像素爱丽克丝">
+                </div>
+                <h3 class="friend-name">像素爱丽克丝</h3>
+                <p class="friend-desc">建筑艺术家，擅长中世纪和奇幻风格建筑。每周更新建筑教程和世界展示。</p>
+                <a href="#" class="visit-btn">访问主页</a>
+            </div>
+            
+            <!-- 友链卡片 3 -->
+            <div class="friend-card">
+                <div class="friend-avatar">
+                    <img src="https://i.pravatar.cc/80?img=3" alt="末影行者">
+                </div>
+                <h3 class="friend-name">末影行者</h3>
+                <p class="friend-desc">探险家，专注于寻找稀有生物群系和结构。分享地图种子和探险日记。</p>
+                <a href="#" class="visit-btn">访问主页</a>
+            </div>
+            
+            <!-- 友链卡片 4 -->
+            <div class="friend-card">
+                <div class="friend-avatar">
+                    <img src="https://i.pravatar.cc/80?img=4" alt="红石大师">
+                </div>
+                <h3 class="friend-name">红石大师</h3>
+                <p class="friend-desc">自动化装置设计师，创造各种实用红石机械。从简单到复杂的红石教程应有尽有。</p>
+                <a href="#" class="visit-btn">访问主页</a>
+            </div>
+            
+            <!-- 友链卡片 5 -->
+            <div class="friend-card">
+                <div class="friend-avatar">
+                    <img src="https://i.pravatar.cc/80?img=5" alt="苦力怕实验室">
+                </div>
+                <h3 class="friend-name">苦力怕实验室</h3>
+                <p class="friend-desc">模组开发者和整合包制作者。分享原创模组和精心制作的模组整合包。</p>
+                <a href="#" class="visit-btn">访问主页</a>
+            </div>
+            
+            <!-- 友链卡片 6 -->
+            <div class="friend-card">
+                <div class="friend-avatar">
+                    <img src="https://i.pravatar.cc/80?img=6" alt="下界旅行者">
+                </div>
+                <h3 class="friend-name">下界旅行者</h3>
+                <p class="friend-desc">PvP和战斗技巧专家，擅长各种武器的使用技巧和战斗策略。分享对战视频和技巧分析。</p>
+                <a href="#" class="visit-btn">访问主页</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部返回按钮 -->
+    <div class="footer">
+        <button class="return-btn" onclick="window.history.back()">返回主世界</button>
+    </div>
+    
+    <script>
+        // 添加按钮点击效果
+        document.querySelector('.return-btn').addEventListener('click', function() {
+            this.classList.add('active');
+            setTimeout(() => {
+                this.classList.remove('active');
+            }, 150);
+        });
+        
+        // 添加卡片悬停效果增强
+        const cards = document.querySelectorAll('.friend-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
