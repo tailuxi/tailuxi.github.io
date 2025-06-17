@@ -824,17 +824,17 @@
                     <span class="status-value">江苏宿迁</span>
                 </div>
                 <div class="status-item">
-                    <span class="status-name">配置</span>
-                    <span class="status-value">2核8G</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-name">IP地址</span>
+                    <span class="status-name">主服IP地址</span>
                     <span class="status-value">
                         <span id="server-ip">111.170.33.2:45199</span>
                         <button onclick="copyIP()" style="background: none; border: none; color: #FFAA00; cursor: pointer; margin-left: 5px;" title="点击复制">
                             <i class="fas fa-copy"></i>
                         </button>
                     </span>
+                </div>
+                <div class="status-item">
+                    <span class="status-name">小游戏IP地址</span>
+                    <span class="status-value">xm.rainplay.cn:45199</span>
                 </div>
                 <div class="status-item">
                     <span class="status-name">在线人数</span>
@@ -1112,6 +1112,12 @@
             document.getElementById("msss-status").textContent = "地图制作中…";
             document.getElementById("msss-status").className = "offline";
             document.getElementById("msss-server-status").className = "status-item offline";
+
+            // 更新大乱斗服务器状态（示例，实际需要根据你的服务器配置调整）
+            document.getElementById("dld-status").textContent = "地图制作中…";
+            document.getElementById("dld-status").className = "offline";
+            document.getElementById("dld-server-status").className = "status-item offline";
+            
             
             // 更新服务器排名（模拟数据）
             document.getElementById("server-rank").textContent = "此功能调试中…";
