@@ -786,7 +786,7 @@
                     <span class="status-name">起床战争</span>
                     <span class="status-value" id="bedwars-status">检查中...</span>
                 </div>
-                <div class="status-item" id="creative-server-status">
+                <div class="status-item" id="kdzz-server-status">
                     <span class="status-name">空岛战争</span>
                     <span class="status-value" id="creative-status">未开放</span>
                 </div>
@@ -1102,6 +1102,11 @@
             document.getElementById("bedwars-status").textContent = "在线";
             document.getElementById("bedwars-status").className = "online";
             document.getElementById("bedwars-server-status").className = "status-item online";
+
+            // 更新空岛战争服务器状态（示例，实际需要根据你的服务器配置调整）
+            document.getElementById("kdzz-status").textContent = "在线";
+            document.getElementById("kdzz-status").className = "online";
+            document.getElementById("kdzz-server-status").className = "status-item online";
             
             // 更新服务器排名（模拟数据）
             document.getElementById("server-rank").textContent = "此功能调试中…";
