@@ -792,11 +792,11 @@
                 </div>
                 <div class="status-item" id="msss-server-status">
                     <span class="status-name">密室杀手</span>
-                    <span class="status-value" id="bedwars-status">检查中...</span>
+                    <span class="status-value" id="msss-status">检查中...</span>
                 </div>
                 <div class="status-item" id="dld-server-status">
                     <span class="status-name">大乱斗</span>
-                    <span class="status-value" id="bedwars-status">检查中...</span>
+                    <span class="status-value" id="dld-status">检查中...</span>
                 </div>
                 
                 <!-- 玩家列表容器 -->
@@ -1107,6 +1107,11 @@
             document.getElementById("kdzz-status").textContent = "在线";
             document.getElementById("kdzz-status").className = "online";
             document.getElementById("kdzz-server-status").className = "status-item online";
+
+            // 更新密室杀手服务器状态（示例，实际需要根据你的服务器配置调整）
+            document.getElementById("msss-status").textContent = "地图制作中…";
+            document.getElementById("msss-status").className = "offline";
+            document.getElementById("msss-server-status").className = "status-item offline";
             
             // 更新服务器排名（模拟数据）
             document.getElementById("server-rank").textContent = "此功能调试中…";
