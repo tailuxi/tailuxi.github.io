@@ -820,13 +820,13 @@
                     <span class="status-value" id="max-players">100</span>
                 </div>
                 <div class="status-item">
-                    <span class="status-name">机房</span>
-                    <span class="status-value">江苏宿迁</span>
+                    <span class="status-name">开放时间</span>
+                    <span class="status-value">全年24小时</span>
                 </div>
                 <div class="status-item">
                     <span class="status-name">主服IP地址</span>
                     <span class="status-value">
-                        <span id="server-ip">hmfree.tooo.top:20441</span>
+                        <span id="server-ip">play.simpfun.cn:12278</span>
                         <button onclick="copyIP()" style="background: none; border: none; color: #FFAA00; cursor: pointer; margin-left: 5px;" title="点击复制">
                             <i class="fas fa-copy"></i>
                         </button>
@@ -892,7 +892,7 @@
             <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
                 <div style="flex: 1; min-width: 200px;">
                     <h3><i class="fas fa-gamepad"></i> 1. 启动游戏</h3>
-                    <p>确保你的Minecraft Java版版本为1.14.4</p>
+                    <p>确保你的Minecraft Java版版本为1.12-1.18.2</p>
                 </div>
                 <div style="flex: 1; min-width: 200px;">
                     <h3><i class="fas fa-plus-circle"></i> 2. 添加服务器</h3>
@@ -900,7 +900,7 @@
                 </div>
                 <div style="flex: 1; min-width: 200px;">
                     <h3><i class="fas fa-keyboard"></i> 3. 输入地址</h3>
-                    <p>服务器地址: <span id="server-ip-copy">111.170.33.2:45199</span></p>
+                    <p>服务器地址: <span id="server-ip-copy">play.simpfun.cn:12278</span></p>
                 </div>
                 <div style="flex: 1; min-width: 200px;">
                     <h3><i class="fas fa-play"></i> 4. 开始游戏</h3>
@@ -942,7 +942,7 @@
     <div class="floating-notice" id="floating-notice">
         <button class="close-notice" onclick="closeNotice()">×</button>
         <h3>服务器公告</h3>
-        <p>服务器换新地址了:hmfree.tooo.top:20441，请各位玩家注意!</p>
+        <p>服务器换新地址了:play.simpfun.cn:12278，请各位玩家注意!</p>
         <a href="#" style="color: #FFAA00; text-decoration: underline;">查看详情</a>
     </div>
     
@@ -959,7 +959,7 @@
     <footer>
         <div class="footer-content">
             <div class="social-links">
-                <a href="#" title="QQ群"><i class="fab fa-qq"></i></a>
+                <a href="https://qm.qq.com/cgi-bin/qm/qr?k=FCUjoTzjy74Y2uz3kfzo6D294JgOfghk&jump_from=webapi&authKey=8vTdff5LUxCCumcMtnBScZ27EIA4F7sv0AUB4FvFlAUK8+TyTS8tuYjy8mGul4Kk" title="QQ群"><i class="fab fa-qq"></i></a>
                 <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
                 <a href="#" title="微信公众号"><i class="fab fa-weixin"></i></a>
                 <a href="#" title="Bilibili"><i class="fab fa-bilibili"></i></a>
@@ -1047,8 +1047,8 @@
         
         // 服务器状态检查功能
         function updateServerStatus() {
-            const SERVER_IP = "hmfree.tooo.top";
-            const SERVER_PORT = "20441";
+            const SERVER_IP = "play.simpfun.cn";
+            const SERVER_PORT = "12278";
             const apiUrl = `https://api.mcsrvstat.us/2/${SERVER_IP}:${SERVER_PORT}`;
             
             fetch(apiUrl)
